@@ -21,19 +21,19 @@ public class VerspaetungController {
     @RequestMapping("/lines")
     public ResponseEntity getVehicle(@RequestParam("time") String time,
                              @RequestParam("x") int x,
-                             @RequestParam("y") int y) throws Exception, StopNotFoundException {
+                             @RequestParam("y") int y) {
         List<Line> vehicles = verspaetungService.getVehicles(time, x, y);
         return new ResponseEntity(vehicles, HttpStatus.OK);
     }
 
     @RequestMapping("/stops/{stopId}/lines")
-    public ResponseEntity getNextVehicleToStop(@PathVariable("stopId") int stopId) throws Exception, StopNotFoundException {
+    public ResponseEntity getNextVehicleToStop(@PathVariable("stopId") int stopId) {
         int lineId = verspaetungService.getNextLine(stopId, LocalTime.now());
         return new ResponseEntity(lineId, HttpStatus.OK);
     }
 
     @RequestMapping("/lines/{lineId}")
-    public ResponseEntity checkIfDelayed(@PathVariable("lineId") int lineId) throws Exception {
+    public ResponseEntity checkIfDelayed(@PathVariable("lineId") int lineId) {
         boolean delayed = verspaetungService.isDelayed(lineId);
         return new ResponseEntity(delayed, HttpStatus.OK);
     }

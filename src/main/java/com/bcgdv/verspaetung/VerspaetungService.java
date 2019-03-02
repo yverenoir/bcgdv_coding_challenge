@@ -24,7 +24,7 @@ public class VerspaetungService {
         this.repository = repository;
     }
 
-    public boolean isDelayed(int lineId) throws Exception {
+    public boolean isDelayed(int lineId) {
         Line line;
         Optional<Line> lineOptional = repository.getLine(lineId);
 
@@ -46,10 +46,10 @@ public class VerspaetungService {
         return false;
     }
 
-    public int getNextLine(int stopId, LocalTime timeNow) throws StopNotFoundException, Exception {
+    public int getNextLine(int stopId, LocalTime timeNow) {
         int lineId;
         List<AdjustedTime> linesWithAdjustedTime =
-                repository.getLinesWithAdjustedTime(stopId);
+                repository.getLinesWithAdjustedTime();
 
         List<AdjustedTime> linesforGivenStop = linesWithAdjustedTime
                 .stream()
@@ -84,7 +84,7 @@ public class VerspaetungService {
         return lineId;
     }
 
-    public List<Line> getVehicles(String time, int x, int y) throws Exception, StopNotFoundException {
+    public List<Line> getVehicles(String time, int x, int y) {
         return repository.getLinesFor(time, x, y);
     }
 }

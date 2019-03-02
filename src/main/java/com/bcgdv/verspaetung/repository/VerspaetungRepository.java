@@ -12,34 +12,34 @@ import java.util.stream.Collectors;
 
 @Repository
 public class VerspaetungRepository {
-    public List<Delay> getDelays() throws Exception {
+    public List<Delay> getDelays() {
         return Reader.readDelay();
     }
 
-    public Optional<Line> getLine(int lineId) throws Exception {
+    public Optional<Line> getLine(int lineId) {
         List<Line> lines = getLines();
         Optional<Line> line = lines.stream().filter(l -> l.getId() == lineId).findFirst();
         return line;
     }
 
-    public List<Line> getLines() throws Exception {
+    public List<Line> getLines() {
         return Reader.readLines();
     }
 
-    public List<Stop> getStops() throws Exception {
+    public List<Stop> getStops() {
         return Reader.readStop();
     }
 
-    public Optional<Stop> getStop(int stopId) throws Exception {
+    public Optional<Stop> getStop(int stopId) {
         List<Stop> stops = getStops();
         return stops.stream().filter(stop -> stop.getId() == stopId).findFirst();
     }
 
-    public List<Time> getTimes() throws Exception {
+    public List<Time> getTimes() {
         return Reader.readTimes();
     }
 
-    public List<AdjustedTime> getLinesWithAdjustedTime(int stopId) throws Exception {
+    public List<AdjustedTime> getLinesWithAdjustedTime() {
         List<Time> times = getTimes();
         List<Delay> delays = getDelays();
         List<Line> lines = getLines();
@@ -76,7 +76,7 @@ public class VerspaetungRepository {
         return adjustedTimeList;
     }
 
-    public List<Line> getLinesFor(String time, int x, int y) throws Exception, StopNotFoundException {
+    public List<Line> getLinesFor(String time, int x, int y) {
         List<Time> times = getTimes();
         List<Stop> stops = getStops();
         List<Line> lines = getLines();
