@@ -13,7 +13,7 @@ localhost:8081/stops/{stopId}/times/{time in HH:mm:ss}/line
 * Indicate if a given line is currently delayed
 
 ```
-localhost:8081/lines/{lineId}
+localhost:8081/lines/{lineId}/delay
 ```
 
 ### How to start

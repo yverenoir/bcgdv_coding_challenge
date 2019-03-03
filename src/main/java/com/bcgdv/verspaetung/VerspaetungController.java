@@ -34,7 +34,7 @@ public class VerspaetungController {
         return new ResponseEntity(lineId, HttpStatus.OK);
     }
 
-    @RequestMapping("/lines/{lineId}")
+    @RequestMapping("/lines/{lineId}/delay")
     public ResponseEntity checkIfDelayed(@PathVariable("lineId") int lineId) {
         boolean delayed = verspaetungService.isDelayed(lineId);
         return new ResponseEntity(delayed, HttpStatus.OK);
