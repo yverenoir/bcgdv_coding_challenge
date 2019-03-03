@@ -1,14 +1,12 @@
 package com.bcgdv.verspaetung.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name"})
 public class Line {
-    @JsonProperty
-    int id;
-    @JsonProperty
-    String name;
+    @JsonProperty("line_id")
+    private int id;
+    @JsonProperty("line_name")
+    private String name;
 
     public Line() {
     }

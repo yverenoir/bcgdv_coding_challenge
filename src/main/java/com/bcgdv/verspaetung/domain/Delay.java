@@ -1,23 +1,20 @@
 package com.bcgdv.verspaetung.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "lineName", "delay"})
 public class Delay {
-    @JsonProperty
-    String lineName;
-    @JsonProperty
-    int delay;
+    @JsonProperty("line_name")
+    private String lineName;
+    private int delay;
 
     public Delay() {
     }
 
-//    public Delay(String lineName, String delay) {
-//        this.lineName = lineName;
-//        this.delay = delay;
-//    }
-//
+    public Delay(String lineName, int delay) {
+        this.lineName = lineName;
+        this.delay = delay;
+    }
+
     public String getLineName() {
         return lineName;
     }

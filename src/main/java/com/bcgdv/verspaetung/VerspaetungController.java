@@ -22,13 +22,15 @@ public class VerspaetungController {
     public ResponseEntity getVehicle(@RequestParam("time") String time,
                              @RequestParam("x") int x,
                              @RequestParam("y") int y) {
+        LocalTime.parse(time);
         List<Line> vehicles = verspaetungService.getVehicles(time, x, y);
         return new ResponseEntity(vehicles, HttpStatus.OK);
     }
 
-    @RequestMapping("/stops/{stopId}/lines")
-    public ResponseEntity getNextVehicleToStop(@PathVariable("stopId") int stopId) {
-        int lineId = verspaetungService.getNextLine(stopId, LocalTime.now());
+    @RequestMapping("/stops/{stopId}/times/{time}/line")
+    public ResponseEntity getNextVehicleToStop(@PathVariable("stopId") int stopId,
+                                               @PathVariable("time") String time) {
+        int lineId = verspaetungService.getNextLine(stopId, LocalTime.parse(time));
         return new ResponseEntity(lineId, HttpStatus.OK);
     }
 

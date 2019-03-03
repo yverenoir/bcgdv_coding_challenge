@@ -25,25 +25,13 @@ public class VerspaetungService {
     }
 
     public boolean isDelayed(int lineId) {
-        Line line;
         Optional<Line> lineOptional = repository.getLine(lineId);
-
-        if (lineOptional.isPresent()) {
-            line = lineOptional.get();
-        } else {
-            throw new LineNotFoundException("Line could not be found");
-        }
+        lineOptional.orElseThrow(() -> new LineNotFoundException("Line could not be found"));
 
         List<Delay> delays = repository.getDelays();
-        Optional<Delay> delay = delays.stream()
-                .filter(d -> d.getLineName().equalsIgnoreCase(line.getName()))
-                .findAny();
-
-        if (delay.isPresent()) {
-            return true;
-        }
-
-        return false;
+        return delays.stream()
+                .filter(d -> d.getLineName().equalsIgnoreCase(lineOptional.get().getName()))
+                .findAny().isPresent();
     }
 
     public int getNextLine(int stopId, LocalTime timeNow) {
@@ -51,25 +39,26 @@ public class VerspaetungService {
         List<AdjustedTime> linesWithAdjustedTime =
                 repository.getLinesWithAdjustedTime();
 
-        List<AdjustedTime> linesforGivenStop = linesWithAdjustedTime
+        List<AdjustedTime> linesForGivenStop = linesWithAdjustedTime
                 .stream()
                 .filter(adjustedTime -> adjustedTime.getStopId() == stopId)
                 .collect(Collectors.toList());
 
-        if (linesforGivenStop.isEmpty()) {
+        if (linesForGivenStop.isEmpty()) {
             throw new StopNotFoundException("Stop cannot be found");
         }
 
         // LocalTime.isAfter does not include the current timestamp,
         // we assume that 10:08:00 is not after 10:08:00
-        List<AdjustedTime> linesAfterNow = linesforGivenStop
+        List<AdjustedTime> linesAfterNow = linesForGivenStop
                 .stream()
                 .filter(adjustedTime -> adjustedTime.getTimeAfterDelay().isAfter(timeNow))
                 .collect(Collectors.toList());
 
+        // Check for next line on current day or next day
         if (linesAfterNow.isEmpty()) {
-            // return smallest value from linesforGivenStop
-            lineId = linesforGivenStop
+            // return smallest value from linesForGivenStop
+            lineId = linesForGivenStop
                     .stream()
                     .min(Comparator.comparing(AdjustedTime::getTimeAfterDelay))
                     .get().getLineId();

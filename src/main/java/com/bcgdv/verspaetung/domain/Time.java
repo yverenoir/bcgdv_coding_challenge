@@ -1,16 +1,13 @@
 package com.bcgdv.verspaetung.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "lineId", "stopId", "timeAfterDelay"})
 public class Time {
-    @JsonProperty
-    int lineId;
-    @JsonProperty
-    int stopId;
-    @JsonProperty
-    String time;
+    @JsonProperty("line_id")
+    private int lineId;
+    @JsonProperty("stop_id")
+    private int stopId;
+    private String time;
 
     public Time() {
     }

@@ -1,7 +1,5 @@
-package com.bcgdv.verspaetung;
+package com.bcgdv.verspaetung.exception;
 
-import com.bcgdv.verspaetung.exception.LineNotFoundException;
-import com.bcgdv.verspaetung.exception.StopNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -33,7 +32,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler(IOException.class)
+    @ExceptionHandler({IOException.class, DateTimeParseException.class})
     public ResponseEntity<Object> handleBadRequest(
       Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getLocalizedMessage(),
