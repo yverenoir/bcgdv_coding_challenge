@@ -3,6 +3,7 @@ package com.bcgdv.verspaetung.repository;
 import com.bcgdv.verspaetung.domain.*;
 import com.bcgdv.verspaetung.domain.reader.Reader;
 import com.bcgdv.verspaetung.exception.StopNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
@@ -13,20 +14,24 @@ import java.util.stream.Collectors;
 
 @Repository
 public class VerspaetungRepository {
+
+    @Autowired
+    Reader reader;
+
     public List<Delay> getDelays() {
-        return Reader.readDelay();
+        return reader.readDelay();
     }
 
     public List<Line> getLines() {
-        return Reader.readLines();
+        return reader.readLines();
     }
 
     public List<Stop> getStops() {
-        return Reader.readStop();
+        return reader.readStop();
     }
 
     public List<Time> getTimes() {
-        return Reader.readTimes();
+        return reader.readTimes();
     }
 
     public Optional<Line> getLine(int lineId) {
