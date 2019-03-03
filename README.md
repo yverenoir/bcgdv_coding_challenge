@@ -18,7 +18,12 @@ localhost:8081/lines/{lineId}
 
 ### How to start
 
-* Change the four paths in `Reader.java` to read from the given `.csv` files
+* Java version 1.8 is required to run this application
+* Go to this project's source code folder and run the following command to start the application:
+
+```
+java -jar verspaetung-0.0.1-SNAPSHOT.jar
+```
 
 ### Assumptions/Deductions
 Given the limited information I assume/deduct the following:
