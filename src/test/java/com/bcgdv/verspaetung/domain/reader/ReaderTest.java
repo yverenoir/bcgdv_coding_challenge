@@ -12,25 +12,25 @@ import static org.junit.Assert.*;
 
 public class ReaderTest {
     @Test
-    public void readStops() throws Exception {
+    public void readStops() {
         List<Stop> stops = Reader.readStop();
         assertEquals(12, stops.size());
     }
 
     @Test
-    public void readLines() throws Exception {
+    public void readLines() {
         List<Line> lines = Reader.readLines();
         assertEquals(3, lines.size());
     }
 
     @Test
-    public void readDelays() throws Exception {
+    public void readDelays() {
         List<Delay> delays = Reader.readDelay();
         assertEquals(3, delays.size());
     }
 
     @Test
-    public void readTimes() throws Exception {
+    public void readTimes() {
         List<Time> times = Reader.readTimes();
         assertEquals(15, times.size());
     }
